@@ -321,7 +321,6 @@ export default {
       })
     },
     onUpload() {
-      this.imageurl = null
       const storageRef = firebase
         .storage()
         // eslint-disable-next-line no-template-curly-in-string

@@ -6,52 +6,63 @@
       v-model="valid"
       lazy-validation
     >
-      <v-text-field
-        v-model="name"
-        style="2"
-        label="Items"
-        :rules="[(v) => !!v || 'Name is required']"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="price"
-        type="number"
-        style="1"
-        label="price"
-        :rules="[(v) => !!v || 'Price is required']"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="quanity"
-        type="number"
-        style="1"
-        label="Quanity"
-        :rules="[(v) => !!v || 'Quanity is required']"
-        required
-      ></v-text-field>
-      <v-item-group>
-        <v-checkbox
-          v-model="status"
-          value="WantToBuy"
-          label="WantToBuy"
-          :rules="[(v) => !!v || 'Plese select one']"
-          required
-        ></v-checkbox>
-        <v-checkbox
-          v-model="status"
-          value="WantToSell"
-          label="WantToSell"
-          :rules="[(v) => !!v || 'Plese select one']"
-          required
-        ></v-checkbox>
-      </v-item-group>
-      <v-textarea
-        label="Description"
-        v-model="Description"
-        clearable
-        clear-icon="mdi-close-circle"
-        primary
-      ></v-textarea>
+      <v-row>
+        <v-col md="5">
+          <v-text-field
+            outlined
+            v-model="name"
+            style="2"
+            label="Items"
+            :rules="[(v) => !!v || 'Name is required']"
+            required
+          ></v-text-field>
+          <v-text-field
+            outlined
+            v-model="price"
+            type="number"
+            style="1"
+            label="price"
+            :rules="[(v) => !!v || 'Price is required']"
+            required
+          ></v-text-field>
+          <v-text-field
+            outlined
+            v-model="quantity"
+            type="number"
+            style="1"
+            label="Quanity"
+            :rules="[(v) => !!v || 'Quanity is required']"
+            required
+          ></v-text-field>
+          <v-item-group>
+            <v-checkbox
+              outlined
+              v-model="status"
+              value="WantToBuy"
+              label="WantToBuy"
+              :rules="[(v) => !!v || 'Plese select one']"
+              required
+            ></v-checkbox>
+            <v-checkbox
+              v-model="status"
+              value="WantToSell"
+              label="WantToSell"
+              :rules="[(v) => !!v || 'Plese select one']"
+              required
+            ></v-checkbox>
+          </v-item-group>
+        </v-col>
+        <v-col>
+          <v-textarea
+            label="Description"
+            v-model="Description"
+            clearable
+            clear-icon="mdi-close-circle"
+            primary
+            outlined
+          ></v-textarea>
+        </v-col>
+      </v-row>
       <v-file-input
         v-model="files"
         :rules="[(v) => !!v || 'image is required']"
@@ -62,7 +73,9 @@
         placeholder="Select your files"
         prepend-icon="mdi-paperclip"
         outlined
+        hint="select mutiple file in one time"
         :show-size="1000"
+        persistent-hint
       >
         <template v-slot:selection="{ index, text }">
           <v-chip
@@ -88,26 +101,12 @@
         :value="uploadValue"
         max="100"
       ></v-progress-linear>
-      <div>
-        <v-btn @click="onUpload">Upload</v-btn>
-        <br />
-        <div class="from-group d-flex">
-          <div class="p-1" v-for="(img, index) in picture" :key="index">
-            <img class="preview" :src="img" />
-          </div>
-        </div>
-      </div>
       <br />
-      <v-btn color="primary" class="mr-4" :disabled="!valid" @click="addData">
-        Submit
-      </v-btn>
+      <v-btn class="mr-4" :disabled="!valid" @click="onUpload"> Submit </v-btn>
       <v-dialog v-model="dialog" max-width="290">
         <v-card>
           <v-card-title class="headline"> Your order is placed </v-card-title>
-          <v-card-text>
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
-          </v-card-text>
+          <v-card-text> We hope you can get a good deal! </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="green darken-1" text @click="dialog = false">
@@ -132,7 +131,7 @@ import { auth } from '~/plugins/FirebaseConfig.js'
 export default {
   data: function () {
     return {
-      quanity: '',
+      quantity: '',
       files: [],
       Description: '',
       picker: '',
@@ -149,10 +148,9 @@ export default {
   },
   methods: {
     addData() {
-      this.$refs.form.validate()
       if (this.name && this.price && this.status) {
         var dataText = {
-          quanity: this.quanity,
+          quantity: this.quantity,
           name: this.name,
           status: this.status,
           price: this.price,
@@ -172,7 +170,7 @@ export default {
           })
         this.$refs.form.reset()
         this.dialog = true
-        this.picture = ''
+        this.picture = []
         this.uploadValue = 0
       }
     },
@@ -187,6 +185,7 @@ export default {
       })
     },
     onUpload() {
+      this.$refs.form.validate()
       for (var i = 0; i < this.files.length; i++) {
         let userId = firebase.auth().currentUser.uid
         let file = this.files[i]
@@ -202,10 +201,16 @@ export default {
             this.uploadValue =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           },
+          (error) => {
+            // eslint-disable-next-line no-undef
+            console.log(error, message)
+          },
           () => {
             this.uploadValue = 100
             uploadTask.snapshot.ref.getDownloadURL().then((url) => {
               this.picture.push(url)
+              console.log(this.picture)
+              this.addData()
             })
           }
         )

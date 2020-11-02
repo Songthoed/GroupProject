@@ -145,7 +145,7 @@
                 ></v-text-field>
               </v-col>
               <v-col md="1">
-                <v-btn>
+                <v-btn @click="lookcard = true">
                   <v-icon>mdi-card-account-details-outline</v-icon>
                 </v-btn>
               </v-col>
@@ -282,7 +282,7 @@
                 ></v-text-field>
               </v-col>
               <v-col md="1">
-                <v-btn>
+                <v-btn @click="lookcard = true">
                   <v-icon>mdi-card-account-details-outline</v-icon>
                 </v-btn>
               </v-col>
@@ -499,7 +499,7 @@
                 ></v-text-field>
               </v-col>
               <v-col md="1">
-                <v-btn>
+                <v-btn @click="lookcard = true">
                   <v-icon>mdi-card-account-details-outline</v-icon>
                 </v-btn>
               </v-col>
@@ -635,7 +635,7 @@
                 ></v-text-field>
               </v-col>
               <v-col md="1">
-                <v-btn>
+                <v-btn @click="lookcard = true">
                   <v-icon>mdi-card-account-details-outline</v-icon>
                 </v-btn>
               </v-col>
@@ -706,6 +706,11 @@
           </v-col>
         </v-row>
       </div>
+      <v-dialog v-model="lookcard" max-width="400">
+        <v-card>
+          <img :src="currentuser[0].idcard" height="100%" width="100%" />
+        </v-card>
+      </v-dialog>
     </v-container>
   </div>
 </template>
@@ -717,6 +722,7 @@ import { auth, db } from '~/plugins/FirebaseConfig.js'
 export default {
   data() {
     return {
+      lookcard: false,
       status: 'sell',
       mySellItems: [{ name: '' }, { price: '' }],
       myBuyItems: [{ name: '' }, { price: '' }],
@@ -735,6 +741,7 @@ export default {
         { payment: '' },
         { userId: '' },
         { img: '' },
+        { idcard: '' },
       ],
     }
   },

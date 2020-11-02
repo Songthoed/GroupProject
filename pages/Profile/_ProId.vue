@@ -55,8 +55,8 @@
                           icon
                           small
                           :to="{
-                            name: 'Item-Myitem',
-                            params: { Myitem: item.itemId },
+                            name: 'Item-id',
+                            params: { id: item.itemId },
                           }"
                         >
                           <v-icon color="orange darken-4" small>
@@ -86,8 +86,8 @@
                           icon
                           small
                           :to="{
-                            name: 'Item-Myitem',
-                            params: { Myitem: item.itemId },
+                            name: 'Item-id',
+                            params: { id: item.itemId },
                           }"
                         >
                           <v-icon color="orange darken-4" small>
@@ -255,8 +255,8 @@
                           icon
                           small
                           :to="{
-                            name: 'Item-Myitem',
-                            params: { Myitem: item.itemId },
+                            name: 'Item-id',
+                            params: { id: item.itemId },
                           }"
                         >
                           <v-icon color="orange darken-4" small>
@@ -286,8 +286,8 @@
                           icon
                           small
                           :to="{
-                            name: 'Item-Myitem',
-                            params: { Myitem: item.itemId },
+                            name: 'Item-id',
+                            params: { id: item.itemId },
                           }"
                         >
                           <v-icon color="orange darken-4" small>

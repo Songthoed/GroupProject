@@ -9,55 +9,16 @@
       temporary
     >
       <v-list-item>
-        <v-list v-if="this.$store.state.isLoggedIn == true">
-          <v-list v-if="this.$store.state.currentuser.admin == true">
-            <v-list-item link>
-              <v-list-item-content>
-                <v-row justify="center">
-                  <v-avatar size="70">
-                    <img :src="this.$store.state.currentuser.img" />
-                  </v-avatar>
-                </v-row>
-                <v-list-item-title class="title">
-                  <v-body>
-                    {{ this.$store.state.currentuser.username }}
-                  </v-body>
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ this.$store.state.currentuser.email }}
-                </v-list-item-subtitle>
-                <v-list nav dense>
-                  <v-list-item link nuxt to="/MyProfile">
-                    <v-list-item-icon>
-                      <v-icon>mdi-account</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>My Profile</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item link nuxt to="/admin">
-                    <v-list-item-icon>
-                      <v-icon>mdi-database-edit</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>data table</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="logout">
-                    <v-list-item-icon>
-                      <v-icon>mdi-logout</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>Logout</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-          <v-list v-else>
-            <v-list-item link>
-              <v-list-item-content>
-                <v-row justify="center">
-                  <v-avatar size="70">
-                    <img :src="this.$store.state.currentuser.img" />
-                  </v-avatar>
-                </v-row>
-                <v-row justify="center" align="center">
+        <div v-if="user == true">
+          <v-list v-if="this.$store.state.isLoggedIn == true">
+            <v-list v-if="this.$store.state.currentuser.admin == true">
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-row justify="center">
+                    <v-avatar size="70">
+                      <img :src="this.$store.state.currentuser.img" />
+                    </v-avatar>
+                  </v-row>
                   <v-list-item-title class="title">
                     <v-body>
                       {{ this.$store.state.currentuser.username }}
@@ -66,48 +27,111 @@
                   <v-list-item-subtitle>
                     {{ this.$store.state.currentuser.email }}
                   </v-list-item-subtitle>
-                </v-row>
+                  <v-list nav dense>
+                    <v-list-item link nuxt to="/MyProfile">
+                      <v-list-item-icon>
+                        <v-icon>mdi-account</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>My Profile</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link nuxt to="/searchUser">
+                      <v-list-item-icon>
+                        <v-icon>mdi-chat-outline</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>chat</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link nuxt to="/admin">
+                      <v-list-item-icon>
+                        <v-icon>mdi-database-edit</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>data table</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="logout">
+                      <v-list-item-icon>
+                        <v-icon>mdi-logout</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>Logout</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-list v-else>
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-row justify="center">
+                    <v-avatar size="70">
+                      <img :src="this.$store.state.currentuser.img" />
+                    </v-avatar>
+                  </v-row>
+                  <v-row justify="center" align="center">
+                    <v-list-item-title class="title">
+                      <v-body>
+                        {{ this.$store.state.currentuser.username }}
+                      </v-body>
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ this.$store.state.currentuser.email }}
+                    </v-list-item-subtitle>
+                  </v-row>
 
-                <v-list nav dense>
-                  <v-list-item link nuxt to="/MyProfile">
-                    <v-list-item-icon>
-                      <v-icon>mdi-account</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>My Profile</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item link nuxt to="/PlaceOrder">
-                    <v-list-item-icon>
-                      <v-icon>mdi-plus-box</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>PlaceOrder</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="logout">
-                    <v-list-item-icon>
-                      <v-icon>mdi-logout</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>Logout</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-list-item-content>
-            </v-list-item>
+                  <v-list nav dense>
+                    <v-list-item link nuxt to="/MyProfile">
+                      <v-list-item-icon>
+                        <v-icon>mdi-account</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>My Profile</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link nuxt to="/searchUser">
+                      <v-list-item-icon>
+                        <v-icon>mdi-chat-outline</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>chat</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link nuxt to="/PlaceOrder">
+                      <v-list-item-icon>
+                        <v-icon>mdi-plus-box</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>PlaceOrder</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="logout">
+                      <v-list-item-icon>
+                        <v-icon>mdi-logout</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>Logout</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
           </v-list>
-        </v-list>
-        <v-list v-else>
+          <v-list v-else>
+            <v-list nav dense>
+              <v-list-item link nuxt to="/login">
+                <v-list-item-icon>
+                  <v-icon>mdi-login</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Login</v-list-item-title>
+              </v-list-item>
+              <v-list-item link nuxt to="/Register">
+                <v-list-item-icon>
+                  <v-icon>mdi-account-plus</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Register</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-list>
+        </div>
+        <v-div v-else-if="user == false">
           <v-list nav dense>
-            <v-list-item link nuxt to="/login">
+            <v-list-item @click="kickoff">
               <v-list-item-icon>
-                <v-icon>mdi-login</v-icon>
+                <v-icon>mdi-logout</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Login</v-list-item-title>
-            </v-list-item>
-            <v-list-item link nuxt to="/Register">
-              <v-list-item-icon>
-                <v-icon>mdi-account-plus</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Register</v-list-item-title>
+              <v-list-item-title>Logout</v-list-item-title>
             </v-list-item>
           </v-list>
-        </v-list>
+        </v-div>
       </v-list-item>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app class="hidden-md-and-up">
@@ -124,104 +148,124 @@
     >
       <v-btn text><v-toolbar-title v-text="title" @click="main" /></v-btn>
       <v-spacer />
-      <div
-        v-if="this.$store.state.isLoggedIn == true"
-        class="d-flex justify-center align-center"
-      >
+      <v-div v-if="user == true">
         <div
-          v-if="this.$store.state.currentuser.admin == true"
+          v-if="this.$store.state.isLoggedIn == true"
           class="d-flex justify-center align-center"
         >
-          <v-col>
-            <v-btn class="text-uppercase" text @click="admin"
-              ><v-icon>mdi-database-edit</v-icon> data table</v-btn
-            >
-          </v-col>
-          <v-col>
-            <div class="text-center">
-              <v-menu open-on-hover offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <div v-bind="attrs" v-on="on">
-                    <v-avatar size="43">
-                      <img :src="$store.state.currentuser.img" />
-                    </v-avatar>
-                    <v-subtitle>
-                      {{ $store.state.currentuser.username }}
-                    </v-subtitle>
-                  </div>
-                </template>
-                <v-list nav dense>
-                  <v-list-item link nuxt to="/MyProfile">
-                    <v-list-item-icon>
-                      <v-icon>mdi-account</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>My Profile</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="logout">
-                    <v-list-item-icon>
-                      <v-icon>mdi-logout</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>Logout</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
-          </v-col>
+          <div
+            v-if="this.$store.state.currentuser.admin == true"
+            class="d-flex justify-center align-center"
+          >
+            <v-col>
+              <v-btn class="text-uppercase" text @click="admin"
+                ><v-icon>mdi-database-edit</v-icon> data table</v-btn
+              >
+            </v-col>
+            <v-col>
+              <div class="text-center">
+                <v-menu open-on-hover offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div v-bind="attrs" v-on="on">
+                      <v-avatar size="43">
+                        <img :src="$store.state.currentuser.img" />
+                      </v-avatar>
+                      <v-subtitle>
+                        {{ $store.state.currentuser.username }}
+                      </v-subtitle>
+                    </div>
+                  </template>
+                  <v-list nav dense>
+                    <v-list-item link nuxt to="/MyProfile">
+                      <v-list-item-icon>
+                        <v-icon>mdi-account</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>My Profile</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link nuxt to="/searchUser">
+                      <v-list-item-icon>
+                        <v-icon>mdi-chat-outline</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>chat</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="logout">
+                      <v-list-item-icon>
+                        <v-icon>mdi-logout</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>Logout</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+            </v-col>
+          </div>
+          <div v-else class="d-flex justify-center align-center">
+            <v-col>
+              <v-btn class="text-uppercase" text @click="order"
+                ><v-icon>mdi-plus-box</v-icon>place order</v-btn
+              >
+            </v-col>
+            <v-col>
+              <div class="text-center">
+                <v-menu open-on-hover offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div v-bind="attrs" v-on="on">
+                      <v-avatar size="43">
+                        <img :src="$store.state.currentuser.img" />
+                      </v-avatar>
+                      <v-subtitle>{{
+                        $store.state.currentuser.username
+                      }}</v-subtitle>
+                    </div>
+                  </template>
+                  <v-list nav dense>
+                    <v-list-item link nuxt to="/MyProfile">
+                      <v-list-item-icon>
+                        <v-icon>mdi-account</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>My Profile</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item link nuxt to="/searchUser">
+                      <v-list-item-icon>
+                        <v-icon>mdi-chat-outline</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>chat</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item @click="logout">
+                      <v-list-item-icon>
+                        <v-icon>mdi-logout</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>Logout</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </div>
+            </v-col>
+          </div>
         </div>
-        <div v-else class="d-flex justify-center align-center">
-          <v-col>
-            <v-btn class="text-uppercase" text @click="order"
-              ><v-icon>mdi-plus-box</v-icon>place order</v-btn
-            >
-          </v-col>
-          <v-col>
-            <div class="text-center">
-              <v-menu open-on-hover offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <div v-bind="attrs" v-on="on">
-                    <v-avatar size="43">
-                      <img :src="$store.state.currentuser.img" />
-                    </v-avatar>
-                    <v-subtitle>{{
-                      $store.state.currentuser.username
-                    }}</v-subtitle>
-                  </div>
-                </template>
-                <v-list nav dense>
-                  <v-list-item link nuxt to="/MyProfile">
-                    <v-list-item-icon>
-                      <v-icon>mdi-account</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>My Profile</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item link>
-                    <v-list-item-icon>
-                      <v-icon>mdi-cogs</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>Setting</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="logout">
-                    <v-list-item-icon>
-                      <v-icon>mdi-logout</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>Logout</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
-          </v-col>
+        <div v-else>
+          <v-btn nuxt to="/login"><v-icon>mdi-login</v-icon>login</v-btn>
+          <v-btn nuxt to="/Register">
+            <v-icon>mdi-account-plus</v-icon>Register
+          </v-btn>
         </div>
-      </div>
+      </v-div>
       <div v-else>
-        <v-btn nuxt to="/login"><v-icon>mdi-login</v-icon>login</v-btn>
-        <v-btn nuxt to="/Register"
-          ><v-icon>mdi-account-plus</v-icon>Register</v-btn
-        >
+        <v-btn @click="kickoff"><v-icon>mdi-logout</v-icon>logout</v-btn>
       </div>
     </v-app-bar>
     <v-main>
       <v-container>
-        <nuxt />
+        <div v-if="user == true">
+          <nuxt />
+        </div>
+        <div v-else>
+          <img
+            src="https://i.imgur.com/9928Dmo.png"
+            height="100%"
+            width="100%"
+          />
+        </div>
       </v-container>
     </v-main>
   </v-app>
@@ -234,11 +278,11 @@ import { auth } from '~/plugins/FirebaseConfig.js'
 export default {
   data: function () {
     return {
+      user: true,
       miniVariant: false,
       clipped: false,
       drawer: false,
-
-      title: 'RoyalList',
+      title: 'overflow',
     }
   },
   methods: {
@@ -254,6 +298,12 @@ export default {
                 data.push(doc.data())
               })
               let userdata = data
+              if (data.length == 0) {
+                this.user = false
+              } else {
+                this.user = true
+              }
+              console.log(this.user)
               this.$store.dispatch('setUser', userdata)
             })
         }
@@ -262,6 +312,11 @@ export default {
     logout() {
       this.$store.dispatch('logout')
       auth.signOut()
+    },
+    kickoff() {
+      this.$store.dispatch('logout')
+      auth.signOut()
+      location.reload()
     },
     order() {
       this.$router.replace('/PlaceOrder')

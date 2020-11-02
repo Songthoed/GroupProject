@@ -34,7 +34,8 @@
             >
               <v-img :src="items.img[0]" height="200px"></v-img>
               <v-card-title> {{ items.name }}</v-card-title>
-              <v-card-subtitle> {{ items.price }} </v-card-subtitle>
+              <v-card-subtitle> ฿ {{ items.price }} </v-card-subtitle>
+
               <v-card-actions>
                 <v-btn
                   color="orange lighten-2"
@@ -69,7 +70,7 @@
             >
               <v-img :src="items.img[0]" height="200px"></v-img>
               <v-card-title> {{ items.name }} </v-card-title>
-              <v-card-subtitle> {{ items.price }} </v-card-subtitle>
+              <v-card-subtitle> ฿ {{ items.price }} </v-card-subtitle>
               <v-card-actions>
                 <v-btn
                   color="orange lighten-2"
@@ -132,7 +133,7 @@
               >
                 <v-img :src="items.img[0]" height="200px"></v-img>
                 <v-card-title> {{ items.name }}</v-card-title>
-                <v-card-subtitle> {{ items.price }} </v-card-subtitle>
+                <v-card-subtitle> ฿ {{ items.price }} </v-card-subtitle>
                 <v-card-actions>
                   <v-btn
                     color="orange lighten-2"
@@ -168,7 +169,7 @@
               >
                 <v-img :src="items.img[0]" height="200px"></v-img>
                 <v-card-title> {{ items.name }} </v-card-title>
-                <v-card-subtitle> {{ items.price }} </v-card-subtitle>
+                <v-card-subtitle> ฿ {{ items.price }} </v-card-subtitle>
                 <v-card-actions>
                   <v-btn
                     color="orange lighten-2"
