@@ -8,6 +8,7 @@
           filled
           rounded
           dense
+          hint="search from username"
         ></v-text-field>
       </v-col>
     </v-row>
@@ -63,6 +64,17 @@
                     >
                       Chat
                     </v-btn>
+                    <v-btn
+                      outlined
+                      rounded
+                      text
+                      :to="{
+                        name: 'Profile-ProId',
+                        params: { ProId: users.userId },
+                      }"
+                    >
+                      Profile
+                    </v-btn>
                   </v-card-actions>
                 </v-card>
               </v-col>
@@ -98,7 +110,7 @@ export default {
     },
     filterUsers() {
       return this.users.filter((card) => {
-        return card.UserName.toLowerCase().match(this.search.toLowerCase())
+        return card.UserName.match(this.search)
       })
     },
   },

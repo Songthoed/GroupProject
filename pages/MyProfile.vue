@@ -5,7 +5,7 @@
         <v-row>
           <v-col md="3">
             <v-row>
-              <v-card>
+              <v-card width="100%">
                 <v-img
                   :src="currentuser[0].img"
                   height="200"
@@ -181,8 +181,8 @@
             <v-row>
               <v-col>
                 <v-textarea
-                  v-model="currentuser[0].email"
-                  label="Addrass"
+                  v-model="currentuser[0].address"
+                  label="Address"
                   outlined
                   readonly
                 ></v-textarea>
@@ -330,8 +330,8 @@
             <v-row>
               <v-col>
                 <v-textarea
-                  v-model="currentuser[0].email"
-                  label="Addrass"
+                  v-model="currentuser[0].address"
+                  label="Address"
                   outlined
                   hint="Edit here!"
                   persistent-hint
@@ -358,7 +358,7 @@
         <v-row justify="center" align="center">
           <v-col>
             <v-row justify="center" align="center">
-              <v-card>
+              <v-card width="100%">
                 <v-img
                   :src="currentuser[0].img"
                   height="200"
@@ -535,8 +535,8 @@
             <v-row>
               <v-col>
                 <v-textarea
-                  v-model="currentuser[0].email"
-                  label="Addrass"
+                  v-model="currentuser[0].address"
+                  label="Address"
                   outlined
                   readonly
                 ></v-textarea>
@@ -684,8 +684,8 @@
             <v-row>
               <v-col>
                 <v-textarea
-                  v-model="currentuser[0].email"
-                  label="Addrass"
+                  v-model="currentuser[0].address"
+                  label="Address"
                   outlined
                   hint="Edit here!"
                   persistent-hint
@@ -737,11 +737,12 @@ export default {
         { Bank: '' },
         { IDcard: '' },
         { Phonenumber: '' },
-        { username: '' },
+        { UserName: '' },
         { payment: '' },
         { userId: '' },
         { img: '' },
         { idcard: '' },
+        { address: '' },
       ],
     }
   },
@@ -801,10 +802,15 @@ export default {
         Phonenumber: this.currentuser[0].Phonenumber,
         img: this.currentuser[0].img,
         Bank: this.currentuser[0].Bank,
+        address: this.currentuser[0].address,
       }
-      db.collection('Users').doc(this.currentuser[0].userId).update(updatedata)
+      db.collection('Users')
+        .doc(this.currentuser[0].userId)
+        .update(updatedata)
+        .then(() => {
+          console.log(this.currentuser[0].userId)
+        })
       this.edit = false
-      location.reload()
     },
     setdefault() {
       this.edit = false

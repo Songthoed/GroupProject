@@ -32,7 +32,7 @@
                 >
                 <v-btn @click="deleteItem">
                   <v-icon>mdi-trash-can</v-icon>
-                  deleate
+                  delete
                 </v-btn>
               </div>
             </v-col>
@@ -107,7 +107,7 @@
               cancel
             </v-btn>
             <v-btn @click="deleteItem"
-              ><v-icon>mdi-trash-can</v-icon>deleate
+              ><v-icon>mdi-trash-can</v-icon>delete
             </v-btn>
           </v-row>
         </v-col>
@@ -201,7 +201,7 @@
             <v-btn @click="edit = true"><v-icon>mdi-pencil</v-icon>edit</v-btn>
             <v-btn @click="deleteItem">
               <v-icon>mdi-trash-can</v-icon>
-              deleate
+              delete
             </v-btn>
           </div>
         </v-col>
@@ -277,7 +277,7 @@
               cancel
             </v-btn>
             <v-btn @click="deleteItem"
-              ><v-icon>mdi-trash-can</v-icon>deleate
+              ><v-icon>mdi-trash-can</v-icon>delete
             </v-btn>
           </v-row>
         </v-col>

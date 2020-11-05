@@ -103,17 +103,19 @@
       ></v-progress-linear>
       <br />
       <v-btn class="mr-4" :disabled="!valid" @click="onUpload"> Submit </v-btn>
-      <v-dialog v-model="dialog" max-width="290">
+      <v-dialog v-model="dialog" max-width="420" persistent>
         <v-card>
-          <v-card-title class="headline"> Your order is placed </v-card-title>
+          <v-card-title class="headline">
+            Please use real information when placing the product.
+          </v-card-title>
           <v-card-text> We hope you can get a good deal! </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="green darken-1" text @click="dialog = false">
-              Disagree
+              Let me check again
             </v-btn>
-            <v-btn color="green darken-1" text @click="dialog = false">
-              Agree
+            <v-btn color="green darken-1" text @click="addData">
+              Of cause!!
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -148,31 +150,29 @@ export default {
   },
   methods: {
     addData() {
-      if (this.name && this.price && this.status) {
-        var dataText = {
-          quantity: this.quantity,
-          name: this.name,
-          status: this.status,
-          price: this.price,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          ownerId: this.$store.getters.currentuser.userId,
-          ownername: this.$store.getters.currentuser.username,
-          itemId: db.collection('Items').doc().id,
-          img: this.picture,
-          des: this.Description,
-          date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
-        }
-        db.collection('Items')
-          .doc(dataText.itemId)
-          .set(dataText)
-          .catch(function (error) {
-            console.error('Error writing document: ', error)
-          })
-        this.$refs.form.reset()
-        this.dialog = true
-        this.picture = []
-        this.uploadValue = 0
+      var dataText = {
+        quantity: this.quantity,
+        name: this.name,
+        status: this.status,
+        price: this.price,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        ownerId: this.$store.getters.currentuser.userId,
+        ownername: this.$store.getters.currentuser.username,
+        itemId: db.collection('Items').doc().id,
+        img: this.picture,
+        des: this.Description,
+        date: new Date().toJSON().slice(0, 10).replace(/-/g, '/'),
       }
+      db.collection('Items')
+        .doc(dataText.itemId)
+        .set(dataText)
+        .catch(function (error) {
+          console.error('Error writing document: ', error)
+        })
+      this.$refs.form.reset()
+      this.picture = []
+      this.uploadValue = 0
+      this.dialog = false
     },
     reset() {
       this.$refs.form.reset()
@@ -209,12 +209,11 @@ export default {
             this.uploadValue = 100
             uploadTask.snapshot.ref.getDownloadURL().then((url) => {
               this.picture.push(url)
-              console.log(this.picture)
-              this.addData()
             })
           }
         )
       }
+      this.dialog = true
     },
   },
   created() {

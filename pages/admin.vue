@@ -116,8 +116,18 @@ export default {
         })
     },
     deleteUser(item) {
-      if (confirm('Are you sure?')) {
+      if (confirm('Are you sure?' + item)) {
         db.collection('Users').doc(item).delete()
+        db.collection('Items')
+          .where('ownerId', '==', item)
+          .get()
+          .then((querySnapshot) => {
+            var batch = db.batch()
+            querySnapshot.forEach((doc) => {
+              batch.delete(doc.ref)
+            })
+            return batch.commit()
+          })
       }
     },
 

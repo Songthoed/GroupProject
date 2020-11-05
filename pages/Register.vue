@@ -97,8 +97,10 @@
             <v-col md="9">
               <v-file-input
                 v-model="fileimage"
-                label=" imageData"
+                label=" ID Card"
                 filled
+                persistent-hint
+                hint="Click upload before submit"
                 prepend-icon="mdi-camera"
               ></v-file-input>
             </v-col>

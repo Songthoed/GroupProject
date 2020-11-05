@@ -4,7 +4,7 @@
       <v-row>
         <v-col md="3">
           <v-row>
-            <v-card>
+            <v-card width="100%">
               <v-img
                 :src="currentuser[0].img"
                 height="200"
@@ -142,7 +142,7 @@
               ></v-text-field>
             </v-col>
             <v-col md="1">
-              <v-btn>
+              <v-btn @click="lookcard = true">
                 <v-icon>mdi-card-account-details-outline</v-icon>
               </v-btn>
             </v-col>
@@ -178,8 +178,8 @@
           <v-row>
             <v-col>
               <v-textarea
-                v-model="currentuser[0].email"
-                label="Addrass"
+                v-model="currentuser[0].address"
+                label="Address"
                 outlined
                 readonly
               ></v-textarea>
@@ -204,7 +204,7 @@
       <v-row justify="center" align="center">
         <v-col>
           <v-row justify="center" align="center">
-            <v-card>
+            <v-card width="100%">
               <v-img
                 :src="currentuser[0].img"
                 height="200"
@@ -343,7 +343,7 @@
               ></v-text-field>
             </v-col>
             <v-col md="1">
-              <v-btn>
+              <v-btn @click="lookcard = true">
                 <v-icon>mdi-card-account-details-outline</v-icon>
               </v-btn>
             </v-col>
@@ -379,8 +379,8 @@
           <v-row>
             <v-col>
               <v-textarea
-                v-model="currentuser[0].email"
-                label="Addrass"
+                v-model="currentuser[0].address"
+                label="Address"
                 outlined
                 readonly
               ></v-textarea>
@@ -389,6 +389,11 @@
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog v-model="lookcard" max-width="400">
+      <v-card>
+        <img :src="currentuser[0].idcard" height="100%" width="100%" />
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -399,6 +404,7 @@ import { auth, db } from '~/plugins/FirebaseConfig.js'
 export default {
   data() {
     return {
+      lookcard: false,
       status: 'sell',
       mySellItems: [{ name: '' }, { price: '' }],
       myBuyItems: [{ name: '' }, { price: '' }],
@@ -416,6 +422,7 @@ export default {
         { payment: '' },
         { userId: '' },
         { img: '' },
+        { address: '' },
       ],
     }
   },
@@ -470,6 +477,7 @@ export default {
         Phonenumber: this.currentuser[0].Phonenumber,
         img: this.currentuser[0].img,
         Bank: this.currentuser[0].Bank,
+        address: this.currentuser[0].address,
       }
       db.collection('Users').doc(this.currentuser[0].userId).update(updatedata)
       this.edit = false

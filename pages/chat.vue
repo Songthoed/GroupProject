@@ -55,12 +55,14 @@
                           <v-card-subtitle>
                             <v-row>
                               <v-spacer></v-spacer>
-                              <v-col md="2">
-                                <div
+                              <v-col
+                                class="pa-2 secondary text-no-wrap rounded-pill text-center"
+                              >
+                                <text-field
                                   class="pa-2 secondary text-no-wrap rounded-pill text-center"
                                 >
                                   {{ user.message }}
-                                </div>
+                                </text-field>
                               </v-col>
                             </v-row>
                             <v-row>
@@ -258,12 +260,20 @@ export default {
         }
       })
     },
+    checkuser() {
+      var data = auth.onAuthStateChanged((user) => {
+        if (!user) {
+          this.$router.replace('/')
+        }
+      })
+    },
   },
   created() {
     this.getyou()
     this.getuser()
     this.getuser2()
     this.itsMe()
+    this.checkuser()
   },
 }
 </script>
